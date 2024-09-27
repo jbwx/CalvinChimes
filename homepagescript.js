@@ -1,27 +1,28 @@
-document.addEventListener("DOMContentLoaded", function () {
-  addCustomSearch();
-  fetchNews();
-});
+    document.addEventListener("DOMContentLoaded", function () {
+        addCustomSearch();
+        fetchNews();
+    });
 
-function hide3Dots() {
-  document.querySelector("#carouselcarousel-2 > ol").style.display = "none";
-}
+    function hide3Dots() {
+        document.querySelector("#carouselcarousel-2 > ol").style.display =
+            "none";
+    }
 
-function addCustomSearch() {
-  let menuBar = document.getElementById("menu-paper-sections");
-  menuBar.innerHTML += `
+    function addCustomSearch() {
+        let menuBar = document.getElementById("menu-paper-sections");
+        menuBar.innerHTML += `
 
     <button type="submit" class="sno-hac-submit-search-button sno-search fa fa-search" onclick="expandSearch()">
         <span class="icon-hidden-text">Submit Search</span>
     </button>
 
     `;
-}
+    }
 
-function expandSearch() {
-  let menuBar = document.getElementById("menu-paper-sections");
-  let menuBarClone = menuBar.innerHTML;
-  menuBar.innerHTML = `
+    function expandSearch() {
+        let menuBar = document.getElementById("menu-paper-sections");
+        let menuBarClone = menuBar.innerHTML;
+        menuBar.innerHTML = `
           <style>
 
               # menu-paper-sections {
@@ -63,41 +64,43 @@ function expandSearch() {
 
           `;
 
-  let varJWSearch = document.getElementById("IDjwSearch");
+        let varJWSearch = document.getElementById("IDjwSearch");
 
-  varJWSearch.focus();
+        varJWSearch.focus();
 
-  varJWSearch.addEventListener("blur", function () {
-    menuBar.innerHTML = menuBarClone;
-  });
+        varJWSearch.addEventListener("blur", function () {
+            menuBar.innerHTML = menuBarClone;
+        });
 
-  varJWSearch.addEventListener("keydown", function (e) {
-    if (e.code === "Enter") {
-      window.location = "https://calvinchimes.org/?s=" + varJWSearch.value;
+        varJWSearch.addEventListener("keydown", function (e) {
+            if (e.code === "Enter") {
+                window.location =
+                    "https://calvinchimes.org/?s=" + varJWSearch.value;
+            }
+        });
     }
-  });
-}
-function fetchNews() {
-  fetch("https://calvinchimes.org/category/sports/")
-    .then((response) => {
-      return response.text();
-    })
-    .then((fetchedHTML) => {
-      /* get first article with image
+    function fetchNews() {
+        fetch("https://calvinchimes.org/category/sports/")
+            .then((response) => {
+                return response.text();
+            })
+            .then((fetchedHTML) => {
+                /* get first article with image
                    get first article. If image article, goto next
                    Note: there are 12 articles on the page
                    */
-      let storiesHTML = [];
-      for (let i = 0; i < 12; i++) {
-        let articleHTML = fetchedHTML
-          .split(
-            `<div class="profile-rendered catlist-tile sno-tile-clickable sno-tile-resized"`,
-          )
-          [
-            i + 1
-          ].split(`<div` + ` class="cl` + `ear"></div` + `></div` + `></div>`)[0];
-        storiesHTML[i] = articleHTML;
-        console.log(articleHTML);
-      }
-    });
-}
+                let storiesHTML = [];
+                console.log(fetchedHTML);
+                for (let i = 0; i < 12; i++) {
+                    let articleHTML = fetchedHTML
+                        .split(
+                            `<div class="profile-rendered catlist-tile sno-tile-clickable sno-tile-resized"`,
+                        )
+                        [
+                            i + 1
+                        ].split(`<div` + ` class="cl` + `ear"></div` + `></div` + `></div>`)[0];
+                    storiesHTML[i] = articleHTML;
+                    console.log(articleHTML);
+                }
+            });
+    }
