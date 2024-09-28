@@ -1,6 +1,14 @@
+console.log("overridden!");
 document.addEventListener("DOMContentLoaded", function () {
   addCustomSearch();
-  //console.log(fetchNews("https://calvinchimes.org/category/religion/", false, true, false));
+  console.log(
+    fetchNews(
+      "https://calvinchimes.org/category/campus-community/",
+      false,
+      true,
+      false,
+    ),
+  );
   waitForElement("#carouselcarousel-2 > ol", false, function (element) {
     element.style.display = "none";
   });
