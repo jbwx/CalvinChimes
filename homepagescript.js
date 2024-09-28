@@ -1,8 +1,7 @@
-console.log("overridden!");
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async () => {
   addCustomSearch();
   console.log(
-    fetchNews(
+    await fetchNews(
       "https://calvinchimes.org/category/campus-community/",
       false,
       true,
