@@ -113,7 +113,7 @@ async function fetchNews(src, s1i, s2i, s3i) {
       storyObjects[0] = getStory(s1i);
       storyObjects[1] = getStory(s2i);
       storyObjects[2] = getStory(s3i);
-      return storyObjects;
+      console.log(storyObjects);
 
       function getStory(needsImage) {
         for (let i = 0; i < 12; i++) {
@@ -162,7 +162,7 @@ async function fetchNews(src, s1i, s2i, s3i) {
               authorLink: authorLink,
             };
             usedStories[i] = true;
-            console.log(result);
+            break;
           }
         }
       }
