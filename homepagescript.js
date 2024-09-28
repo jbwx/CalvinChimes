@@ -1,22 +1,25 @@
 document.addEventListener("DOMContentLoaded", function () {
-  addCustomSearch();
-  fetchNews(
-    "https://calvinchimes.org/category/campus-community/",
-    true,
-    false,
-    false,
-    "Campus",
-  );
-  waitForElement("#carouselcarousel-2 > ol", false, function (element) {
-    element.style.display = "none";
-  });
-  waitForElement(
-    "#wrap > header > div.sno-header-wrap.sno-header-wrap-desktop > div.sno-designer-area-row.sno-designer-row-fullscreen.snoads-unplaced > div",
-    false,
-    function (element) {
+  addCustomSearch(); // we do this regardless of the page
+  if (window.location.href == "https://calvinchimes.org/") {
+    // only do this on the homepage
+    fetchNews(
+      "https://calvinchimes.org/category/campus-community/",
+      true,
+      false,
+      false,
+      "Campus",
+    );
+    waitForElement("#carouselcarousel-2 > ol", false, function (element) {
       element.style.display = "none";
-    },
-  );
+    });
+    waitForElement(
+      "#wrap > header > div.sno-header-wrap.sno-header-wrap-desktop > div.sno-designer-area-row.sno-designer-row-fullscreen.snoads-unplaced > div",
+      false,
+      function (element) {
+        element.style.display = "none";
+      },
+    );
+  }
 });
 
 function addCustomSearch() {
