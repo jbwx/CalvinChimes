@@ -1,16 +1,14 @@
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", function () {
   addCustomSearch();
-  console.log(
-    await fetchNews(
-      "https://calvinchimes.org/category/campus-community/",
-      false,
-      true,
-      false,
-    ),
-  );
-  waitForElement("#carouselcarousel-2 > ol", false, function (element) {
-    element.style.display = "none";
-  });
+  fetchNews(
+    "https://calvinchimes.org/category/campus-community/",
+    false,
+    true,
+    false,
+  ),
+    waitForElement("#carouselcarousel-2 > ol", false, function (element) {
+      element.style.display = "none";
+    });
   waitForElement(
     "#wrap > header > div.sno-header-wrap.sno-header-wrap-desktop > div.sno-designer-area-row.sno-designer-row-fullscreen.snoads-unplaced > div",
     false,
@@ -164,7 +162,7 @@ async function fetchNews(src, s1i, s2i, s3i) {
               authorLink: authorLink,
             };
             usedStories[i] = true;
-            return result;
+            console.log(result);
           }
         }
       }
