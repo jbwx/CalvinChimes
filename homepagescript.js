@@ -1,14 +1,16 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async () => {
   addCustomSearch();
-  fetchNews(
-    "https://calvinchimes.org/category/campus-community/",
-    false,
-    true,
-    false,
-  ),
-    waitForElement("#carouselcarousel-2 > ol", false, function (element) {
-      element.style.display = "none";
-    });
+  console.log(
+    await fetchNews(
+      "https://calvinchimes.org/category/campus-community/",
+      false,
+      true,
+      false,
+    ),
+  );
+  waitForElement("#carouselcarousel-2 > ol", false, function (element) {
+    element.style.display = "none";
+  });
   waitForElement(
     "#wrap > header > div.sno-header-wrap.sno-header-wrap-desktop > div.sno-designer-area-row.sno-designer-row-fullscreen.snoads-unplaced > div",
     false,
@@ -113,7 +115,7 @@ async function fetchNews(src, s1i, s2i, s3i) {
       storyObjects[0] = getStory(s1i);
       storyObjects[1] = getStory(s2i);
       storyObjects[2] = getStory(s3i);
-      console.log(storyObjects);
+      return storyObjects;
 
       function getStory(needsImage) {
         for (let i = 0; i < 12; i++) {
@@ -162,6 +164,7 @@ async function fetchNews(src, s1i, s2i, s3i) {
               authorLink: authorLink,
             };
             usedStories[i] = true;
+            return result;
             break;
           }
         }
