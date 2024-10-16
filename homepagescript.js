@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
       "Campus",
     );
 
-    console.log("overridden!");
     fetchNews(
       "https://calvinchimes.org/category/culture/",
       false,
