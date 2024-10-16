@@ -9,6 +9,24 @@ document.addEventListener("DOMContentLoaded", function () {
       false,
       "Campus",
     );
+
+    console.log("overridden!");
+    fetchNews(
+      "https://calvinchimes.org/category/culture/",
+      false,
+      false,
+      false,
+      "Culture",
+    );
+
+    fetchNews(
+      "https://calvinchimes.org/category/features/",
+      false,
+      false,
+      false,
+      "Feature",
+    );
+
     waitForElement("#carouselcarousel-2 > ol", false, function (element) {
       element.style.display = "none";
     });
@@ -117,6 +135,7 @@ async function fetchNews(src, s1i, s2i, s3i, category) {
       storyObjects[0] = getStory(s1i);
       storyObjects[1] = getStory(s2i);
       storyObjects[2] = getStory(s3i);
+      console.log(storyObjects);
       processStoryObjects(storyObjects, category);
 
       function getStory(needsImage) {
