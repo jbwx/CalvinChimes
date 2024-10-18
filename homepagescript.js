@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "Campus",
     );
 
+    console.log("overridden!");
     fetchNews(
       "https://calvinchimes.org/category/culture/",
       false,
@@ -24,6 +25,30 @@ document.addEventListener("DOMContentLoaded", function () {
       false,
       false,
       "Feature",
+    );
+
+    fetchNews(
+      "https://calvinchimes.org/category/science-technology/",
+      true,
+      false,
+      false,
+      "SciTech",
+    );
+
+    fetchNews(
+      "https://calvinchimes.org/category/religion/",
+      true,
+      false,
+      false,
+      "Religion",
+    );
+
+    fetchNews(
+      "https://calvinchimes.org/category/sports/",
+      true,
+      false,
+      false,
+      "Sports",
     );
 
     waitForElement("#carouselcarousel-2 > ol", false, function (element) {
@@ -138,13 +163,67 @@ async function fetchNews(src, s1i, s2i, s3i, category) {
       processStoryObjects(storyObjects, category);
 
       function getStory(needsImage) {
+        if (needsImage) {
+          return getStoryWithImage();
+        } else {
+          return getStoryWithoutImage();
+        }
+      }
+
+      function getStoryWithImage() {
+        for (let i = 0; i < 12; i++) {
+          if (usedStories[i] != true && storiesHTML[i].includes(`<img src=`)) {
+            let thisStory = storiesHTML[i];
+            let image = thisStory.split(`<img src="`)[1].split(`"`)[0];
+            let title = thisStory
+              .split(`title='Permanent Link to Story'>`)[1]
+              .split(`</a>`)[0];
+            let subtext = thisStory
+              .split(`<div class='catlist-teaser'>`)[1]
+              .split(`</div>`)[0]
+              .replace(`<p>`, ``)
+              .replace(`</p>`, ``);
+            let link = thisStory.split(`href='`)[1].split(`'`)[0];
+            let author = thisStory
+              .split(`class="creditline">`)[1]
+              .split(`</a>`)[0];
+            let authorLink = thisStory
+              .split(`<span class='catlist-writer'> <a href="`)[1]
+              .split(`"`)[0];
+            // remove tabs and newlines from each string
+            image = image.replaceAll("\t", "").replaceAll("\n", "");
+            title = title.replaceAll("\t", "").replaceAll("\n", "");
+            subtext = subtext.replaceAll("\t", "").replaceAll("\n", "");
+            link = link.replaceAll("\t", "").replaceAll("\n", "");
+            author = author.replaceAll("\t", "").replaceAll("\n", "");
+            authorLink = authorLink.replaceAll("\t", "").replaceAll("\n", "");
+            // replace all '&#038;' with '&'
+            image = image.replaceAll("&#038;", "&");
+            title = title.replaceAll("&#038;", "&");
+            subtext = subtext.replaceAll("&#038;", "&");
+            link = link.replaceAll("&#038;", "&");
+            author = author.replaceAll("&#038;", "&");
+            authorLink = authorLink.replaceAll("&#038;", "&");
+
+            result = {
+              image: image,
+              title: title,
+              subtext: subtext,
+              link: link,
+              author: author,
+              authorLink: authorLink,
+            };
+            usedStories[i] = true;
+            return result;
+          }
+        }
+      }
+
+      function getStoryWithoutImage() {
         for (let i = 0; i < 12; i++) {
           if (usedStories[i] != true) {
             let thisStory = storiesHTML[i];
             let image = "";
-            if (storiesHTML[i].includes(`<img src=`) && needsImage) {
-              image = thisStory.split(`<img src="`)[1].split(`"`)[0];
-            }
             let title = thisStory
               .split(`title='Permanent Link to Story'>`)[1]
               .split(`</a>`)[0];
