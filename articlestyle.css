@@ -1,0 +1,8 @@
+.sno-row-icon {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.hover-full-color-inverse.comment-row-icon .sno-row-icon-ring {
+   border-color: #ffffff00 !important;
+}
